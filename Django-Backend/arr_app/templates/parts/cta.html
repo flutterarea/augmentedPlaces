@@ -1,0 +1,15 @@
+{% load static %}
+<section class="cta section center-content-mobile reveal-from-bottom">
+    <div class="container">
+
+        {% for fc in fwcta %}
+        <div class="cta-inner section-inner cta-split">
+            <div class="cta-slogan">
+                <h3 class="m-0">{{fc.fwcta_cta_title}}</h3>
+            </div>
+            <div class="cta-action"><a class="button button-wide-mobile" href="{{fc.fwcta_cta_btn_url}}">{{fc.fwcta_cta_btn_text}}</a></div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>

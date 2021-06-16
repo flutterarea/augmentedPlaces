@@ -1,0 +1,25 @@
+{% load static %}
+<section class="section center-content">
+    <div class="container">
+
+        {% for f in fwv %}
+        <div class="section-inner has-top-divider">
+            <div class="section-header reveal-from-bottom">
+                <div class="container-xs">
+                    <h2 class="m-0">{{f.fwv_video_title}}</h2>
+                </div>
+            </div>
+            <div class="reveal-from-bottom"><a class="modal-trigger" aria-controls="modal-01"
+                    data-video="{{f.fwv_video_url}}" href="#"><img class="has-shadow"
+                        src="{{f.fwv_video_cover}}" alt="Video" width="712" height="400"></a></div>
+            <div id="modal-01" class="modal modal-video">
+                <div class="modal-inner">
+                    <div class="responsive-video"><iframe src="#" frameborder="0" webkitallowfullscreen
+                            mozallowfullscreen allowfullscreen></iframe></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>

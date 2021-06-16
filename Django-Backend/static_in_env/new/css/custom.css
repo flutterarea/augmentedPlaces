@@ -1,0 +1,13 @@
+.hero {
+    background: url(../images/hero_bg.jpg) center center no-repeat;
+    background-size: cover;
+}
+.hero-figure img {
+    -webkit-box-shadow: 0 0 90px -50px darkblue;
+box-shadow: 0 0 90px -50px darkblue;
+}
+
+.illustration-element-01::after {
+    background-image: none;
+}
+

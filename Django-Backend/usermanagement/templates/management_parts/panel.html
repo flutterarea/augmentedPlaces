@@ -1,0 +1,45 @@
+<div class="add_panel">
+
+    
+  
+  
+      <!-- <div class="form_container">
+          <p>Spot Name</p>
+          <input type="text" placeholder="Write a name for your spot">
+      </div>
+  
+      <div class="form_container">
+          <p>Spot location</p>
+          <pre id="coordinates" class="coordinates"></pre>
+      </div>
+  
+      <div class="form_container">
+          <p>Spot type</p>
+          <select>
+          <option>Photo</option>
+          <option>Video</option>
+          <option>3D Object</option>
+          </select>
+      </div>
+  
+      <div class="form_container">
+          <p>Spot file (Full URL address)</p>
+          <input type="text" placeholder="https://example.com/files/video.mp4">
+      </div>
+
+      <input type="submit" value="Save spot"
+                  class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-0" /> -->
+
+                  <div class="form_container">
+                    <p>Spot location</p>
+                    <pre id="coordinates" class="coordinates"></pre>
+                </div>
+
+                  <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div style="height: 20px;"></div>
+                    <input type="submit" value="add spot" class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-0" />
+                </form>
+      
+  </div>

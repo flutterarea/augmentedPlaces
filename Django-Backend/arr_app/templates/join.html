@@ -1,0 +1,38 @@
+{% extends "arr_app/base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+{% include "parts/navigation.html" %}
+
+<section class="features-tiles section">
+    <div class="container">
+        <div class="features-tiles-inner section-inner">
+            <div class="tiles-wrap">
+
+                {% for wp in wps %}
+                <div class="tiles-item reveal-from-bottom">
+                    <div class="tiles-item-inner">
+                        <div class="features-tiles-item-header">
+                            <div class="features-tiles-item-image mb-16"><img src="{{wp.waypoint_logo}}"
+                                    alt="Feature tile icon 01" width="100%" height="auto"></div>
+                        </div>
+                        <div class="features-tiles-item-content">
+                            <p class="m-0 text-sm">{{wp.waypoint_name}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock %}

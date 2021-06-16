@@ -1,0 +1,47 @@
+<main class="site-content">
+    <section class="signin section illustration-section-01">
+        <div class="container-xs">
+            <div class="signin-inner section-inner">
+                <div class="section-header center-content">
+                    <h1 class="m-0">Welcome back. We exist to make entrepreneurship easier.</h1>
+                </div>
+                <div class="alert alert-success" ng-show="alertMessage.length>0" ng-click="alertMessage = ''">
+                    <span class="closebtn">&times;</span> {{alertMessage}}
+                </div>
+                <div class="tiles-wrap">
+                    <div class="tiles-item">
+                        <div class="tiles-item-inner">
+                            <form>
+                                <fieldset>
+                                    <div class="mb-12"><label class="form-label screen-reader" for="user_email">Email</label> <input ng-model="user_email" class="form-input" type="email" placeholder="Email" required></div>
+                                    <div class="mb-12" ng-show="!resetPasswordCheck"><label class="form-label screen-reader" for="user_password">Password</label> <input ng-model="user_password" class="form-input" type="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="mt-24 mb-32">
+                                        <button ng-show="!resetPasswordCheck" ng-click="loginUser(user_email, user_password)" class="button button-primary button-block">Sign in</button>
+                                        <button ng-show="resetPasswordCheck" ng-click="resetPassword(user_email)" class="button button-primary button-block">Reset</button>
+                                    </div>
+                                    <div class="signin-footer mb-32">
+                                        <label ng-show="!resetPasswordCheck" class="switch form-checkbox">
+                                                <input type="checkbox"> Remember me
+                                                <span class="slider round"></span>
+                                            </label>
+                                        <a ng-show="!resetPasswordCheck" class="func-link text-xs" href="" ng-click="resetTrigger()">Forgot password?</a>
+                                        <a ng-show="resetPasswordCheck" class="func-link text-xs" href="" ng-click="resetTrigger()">Back to login</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <div ng-show="!resetPasswordCheck" class="signin-bottom has-top-divider">
+                                <div class="pt-32 text-xs center-content text-color-low">Don't you have an account? <a class="func-link" href="#!signup">Sign up</a></div>
+                            </div>
+                            <div ng-show="!resetPasswordCheck" class="signin-bottom has-top-divider" style="margin-top: 30px;">
+                                <div class="pt-32 text-xs center-content text-color-low">Or you can sign in with your social account</div>
+                            </div>
+                            <div ng-show="!resetPasswordCheck" class="mt-24 mb-32"><button type="button" class="button button-primary button-block ico-button" ng-click="loginWithFacebook()"><i class="icofont-facebook"></i> Facebook</button></div>
+                            <div ng-show="!resetPasswordCheck" class="mb-32"><button type="button" class="button button-primary button-block ico-button" ng-click="loginWithGoogle()"><i class="icofont-google-plus"></i> Google</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,53 @@
+<main class="site-content">
+    <section class="signin section illustration-section-01">
+        <div class="container-xs">
+            <div class="signin-inner section-inner">
+                <div class="section-header center-content">
+                    <h1 class="m-0">Welcome. We exist to make entrepreneurship easier.</h1>
+                </div>
+
+                <div class="alert alert-success" ng-show="alertMessage.length>0" ng-click="alertMessage = ''">
+                    <span class="closebtn">&times;</span> {{alertMessage}}
+                </div>
+
+                <div class="tiles-wrap">
+                    <div class="tiles-item">
+                        <div class="tiles-item-inner">
+                            <form>
+                                <fieldset>
+                                    <div class="mb-12"><label class="form-label screen-reader" for="user_name">Full
+                                                    name</label>
+                                        <input ng-model="user_name" class="form-input" type="name" placeholder="Full name" required></div>
+                                    <div class="mb-12"><label class="form-label screen-reader" for="user_email">Email</label>
+                                        <input ng-model="user_email" class="form-input" type="email" placeholder="Email" required></div>
+                                    <div class="mb-12"><label class="form-label screen-reader" for="user_password">Password</label>
+                                        <input ng-model="user_password" class="form-input" type="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="mt-24 mb-32"><button type="button" class="button button-primary button-block" ng-click="createUser(user_name, user_email, user_password)">Sign up</button></div>
+                                </fieldset>
+                            </form>
+                            <div class="signin-bottom has-top-divider">
+                                <div class="pt-32 text-xs center-content text-color-low">Already have an account? <a class="func-link" href="#!login">Login</a></div>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class="signin-bottom has-top-divider" style="margin-top: 30px;">
+                            <div class="pt-32 text-xs center-content text-color-low">Or you can sign in with your social account</div>
+                        </div>
+
+
+                        <div class="mt-24 mb-32"><button type="button" class="button button-primary button-block ico-button" ng-click="loginWithFacebook()"><i class="icofont-facebook"></i> Facebook</button></div>
+
+                        <div class="mb-32"><button type="button" class="button button-primary button-block ico-button" ng-click="loginWithGoogle()"><i class="icofont-google-plus"></i> Google</button></div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

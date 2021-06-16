@@ -1,0 +1,39 @@
+{% extends "usermanagement/base.html" %}
+
+{% block page_content %}
+
+{% include "management_parts/sidenav.html" %}
+
+<!-- Main content -->
+<div class="main-content">
+
+{% include "management_parts/topnav.html" %}
+
+<!-- Page content -->
+<div class="header bg-gradient-primary py-5"></div>
+<div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary border-0 mb-0">
+          <div class="card-body px-lg-5 py-lg-5">
+            <form method="POST" class="register_form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div style="height: 20px;"></div>
+                <input type="submit" value="add waypoint"
+                  class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-0" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+    {% include "management_parts/footer.html" %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,278 @@
+{% extends "usermanagement/base.html" %}
+
+{% block page_content %}
+
+
+<ul class="navbar-nav align-items-center ml-auto ml-md-0 profile_btn">
+  <li class="nav-item dropdown">
+    <a class="nav-link pr-0" href="#">
+      <div class="media align-items-center">
+        
+        <div class="media-body  ml-2 d-lg-block">
+          <span class="btn btn-sm btn-neutral" id="add_spot_btn">add spot</span>
+        </div>
+
+      </div>
+    </a>
+    <a class="nav-link pr-0" href="#">
+      <div class="media align-items-center">
+        
+        <div class="media-body  ml-2 d-lg-block">
+          <span class="btn btn-sm btn-neutral" id="upgrade_btn">upgrade</span>
+        </div>
+
+      </div>
+    </a>
+    <div style="height: 10px;"></div>
+    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="media align-items-center">
+        
+        <div class="media-body  ml-2 d-lg-block">
+          <span class="btn btn-sm btn-neutral">{{ user.get_username }}</span>
+        </div>
+
+      </div>
+    </a>
+    <div class="dropdown-menu  dropdown-menu-right ">
+      <div class="dropdown-header noti-title">
+        <h6 class="text-overflow m-0">Welcome!</h6>
+      </div>
+      <a href="#!" class="dropdown-item">
+        <span>Settings</span>
+      </a>
+      <a href="#!" class="dropdown-item">
+        <span>Support</span>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="{% url 'logout'%}?next={{request.path}}" class="dropdown-item">
+        <span>Logout</span>
+      </a>
+    </div>
+  </li>
+</ul>
+
+
+
+
+
+
+<div id="map"></div>
+
+
+{% block javascript %}
+
+<script>
+
+
+
+
+  var geojson = {
+  type: 'FeatureCollection',
+  features: [
+
+
+  {% for us in locations %}
+
+
+
+{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [{{us.ul_location_lng}}, {{us.ul_location_lat}}]
+    },
+    properties: {
+      title: '{{us.ul_user.username}}',
+      class: 'marker_user'
+    }
+  },
+
+{% endfor %}
+
+{% for wp in wps %}
+
+
+
+{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [{{wp.waypoint_coords_lng}}, {{wp.waypoint_coords_lat}}]
+    },
+    properties: {
+      title: '{{wp.waypoint_name}}',
+      class: 'marker_wp',
+      logo: '{{wp.waypoint_logo}}'
+    }
+  },
+
+{% endfor %}
+    
+  
+
+
+
+]
+};
+
+
+
+
+
+
+
+
+
+var crd;
+var coordinates = document.getElementById('coordinates');
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoic3dlcHBzIiwiYSI6ImNpcjNpMndpZTAwMjdoeW1jdDJxaTg4cWsifQ.na1zYoxiQSwVDeNhjVLXFA';
+   
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/swepps/ckb9x3p6t0y901ipauestdlm1',
+        center: [0, 0],
+        zoom: 9,
+        pitch: 90,
+    });
+
+    var element6060 = document.createElement('div');
+    element6060.id = 'marker6060';
+    var marker6060 = new mapboxgl.Marker({
+        element: element6060,
+        draggable: true,
+        anchor: 'bottom'
+    })
+        .setLngLat([-66.324462890625, -16.024695711685304])
+        .addTo(map);
+        element6060.addEventListener('click', function() {
+            // on click marker
+        });
+
+
+    function onDragEnd() {
+        var lngLat = marker6060.getLngLat();
+        var coordinates = document.getElementById('coordinates');
+        coordinates.innerHTML =
+			'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+			
+		document.getElementById("id_waypoint_coords_lat").value = lngLat.lat;
+		document.getElementById("id_waypoint_coords_lng").value = lngLat.lng;
+
+    }
+
+    marker6060.on('dragend', onDragEnd);
+
+
+    var geocoder = new MapboxGeocoder({ // Initialize the geocoder
+  accessToken: mapboxgl.accessToken, // Set the access token
+  mapboxgl: mapboxgl, // Set the mapbox-gl instance
+  marker: false, // Do not use the default marker style
+});
+
+// Add the geocoder to the map
+map.addControl(geocoder);
+
+geocoder.on('result', function(e) {
+    marker6060.setLngLat(
+        e.result.geometry.coordinates
+    );
+  });
+
+
+
+map.on('load', function() {
+        // add markers to map
+geojson.features.forEach(function(marker) {
+
+// create a HTML element for each feature
+var el = document.createElement('div');
+el.className = marker.properties.class;
+el.style.backgroundImage = "url("+marker.properties.logo+")";
+var ell = document.createElement('span');
+ell.className = 'marker_label';
+ell.innerHTML = marker.properties.title;
+el.appendChild(ell);
+
+// make a marker for each feature and add to the map
+new mapboxgl.Marker(el)
+  .setLngLat(marker.geometry.coordinates)
+  .addTo(map);
+});
+
+
+
+})
+
+
+
+
+
+
+
+
+  
+
+function success(pos) {
+  crd = pos.coords;
+
+    map.flyTo({
+        center: [
+            crd.longitude,
+            crd.latitude
+        ],
+        zoom: 16,
+        speed: 1,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+    });
+
+
+
+    marker6060.setLngLat([
+        crd.longitude,
+        crd.latitude
+    ]);
+
+
+    var coordinates = document.getElementById('coordinates');
+
+    coordinates.innerHTML =
+	        'Longitude: ' + crd.longitude + '<br />Latitude: ' + crd.latitude;
+	
+	document.getElementById("id_waypoint_coords_lat").value = crd.latitude;
+		document.getElementById("id_waypoint_coords_lng").value = crd.longitude;
+
+
+
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+$("#add_spot_btn").click(function(){
+	$(".add_panel").toggle();
+  });
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+{% include "management_parts/panel.html" %}
+
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ARCode</title>
+    <script src='https://aframe.io/releases/0.9.2/aframe.min.js'></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script>
+        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="{% static 'assets/js/script.js' %}"></script> -->
+
+</head>
+
+<body style='margin: 0; overflow: hidden;'>
+
+
+
+
+    {% block javascript %}
+  <script>
+   $(document).ready(function () {
+
+
+var crd;
+
+var options = {
+enableHighAccuracy: true,
+timeout: 5000,
+maximumAge: 0
+};
+
+
+
+function success(pos) {
+crd = pos.coords;
+
+$.post( "{% url 'update_location' %}",
+ {
+     csrfmiddlewaretoken: '{{ csrf_token}}' ,
+     lat : crd.latitude, 
+     lng: crd.longitude
+ },
+ function(data) {
+     if(data.status == 1){
+
+     }
+     else{
+
+     }
+ });
+
+}
+
+function error(err) {
+console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
+
+
+});
+  </script>
+{% endblock %}
+
+
+
+    <a-scene
+    cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
+    raycaster="objects: [gps-entity-place];"
+    vr-mode-ui="enabled: false"
+    embedded
+    arjs='sourceType: webcam; trackingMethod: best; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+    
+    
+    
+    {% for wp in wps %}
+
+    <a-link 
+    gps-entity-place= 'latitude: {{ wp.waypoint_coords_lat }}; longitude: {{ wp.waypoint_coords_lng }};'
+    title='{{ wp.waypoint_name }}'
+    href='{{ wp.waypoint_url }}'
+    scale='15 15 15'    
+    ></a-link>
+  
+    {% endfor %}
+    
+    <a-camera gps-camera rotation-reader>
+    </a-camera>
+    </a-scene>
+    
+</body>
+
+
+
+
+
+
+
+    

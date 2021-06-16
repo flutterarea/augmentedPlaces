@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GoAR.app</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'new/css/style.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'new/css/custom.css' %}" />
+</head>
+
+<body class="has-animations">
+    <div class="body-wrap">
+        
+        {% include "parts/navigation.html" %}
+
+        <main class="site-content">
+
+            {% block page_content %}{% endblock %}
+          
+        </main>
+        {% include "parts/footer.html" %}
+    </div>
+    <script src="{% static 'new/js/script.js' %}"></script>
+</body>
+
+</html>

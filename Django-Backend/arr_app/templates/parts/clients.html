@@ -1,0 +1,12 @@
+{% load static %}
+<section class="clients section reveal-fade">
+    <div class="container">
+        <div class="clients-inner section-inner has-top-divider has-bottom-divider">
+            <ul class="list-reset">
+                {% for f in fwp %}
+                <li><img href="{{f.fwp_partner_url}}" src="{{f.fwp_partner_image}}" alt="Clients 01"></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

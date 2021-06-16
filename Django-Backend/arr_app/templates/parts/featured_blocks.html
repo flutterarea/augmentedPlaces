@@ -1,0 +1,38 @@
+{% load static %}
+
+<section class="features-split section">
+    <div class="container">
+        <div class="features-split-inner section-inner has-top-divider">
+            <div class="section-header center-content">
+
+                {% for ft in fwit %}
+                <div class="container-xs">
+                    <h2 class="mt-0 mb-16">{{ft.fwit_title}}</h2>
+                    <p class="m-0">{{ft.fwit_description}}</p>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="split-wrap invert-mobile">
+
+                {% for f in fwi %}
+                <div class="split-item">
+                    <div class="split-item-content center-content-mobile reveal-from-left"
+                        data-reveal-container=".split-item">
+                        <h3 class="mt-0 mb-12">{{f.fwi_info_title}}</h3>
+                        <p class="m-0">{{f.fwi_info_description}}</p>
+                    </div>
+                    <div class="split-item-image split-item-image-fill reveal-from-bottom"
+                        data-reveal-container=".split-item"><img class="has-shadow"
+                            src="{{f.fwi_info_banner_image}}" alt="Features split image 01"
+                            width="528" height="396"></div>
+                </div>
+                {% endfor %}
+                
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
